@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Genre, Artist, Album, Song, Playlist
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -28,7 +28,7 @@ def song_list(request):
 
 # Dettaglio di una singola canzone
 def song_detail(request, pk):
-    song = Song.objects.get(pk=pk)
+    song = get_object_or_404(Song, pk=pk)
     context = {'song': song}
     return render(request, 'music/song_detail.html', context)
 
@@ -40,7 +40,7 @@ def album_list(request):
 
 # Dettaglio di un singolo album
 def album_detail(request, pk):
-    album = Album.objects.get(pk=pk)
+    album = get_object_or_404(Album, pk=pk)
     songs = album.songs.all()  # Tutte le canzoni di questo album
     context = {'album': album, 'songs': songs}
     return render(request, 'music/album_detail.html', context)
@@ -53,7 +53,7 @@ def genre_list(request):
 
 # Dettaglio di un genere (canzoni di quel genere)
 def genre_detail(request, pk):
-    genre = Genre.objects.get(pk=pk)
+    genre = get_object_or_404(Genre, pk=pk)
     songs = genre.songs.all().order_by('title')  # Tutte le canzoni di questo genere
     context = {'genre': genre, 'songs': songs}
     return render(request, 'music/genre_detail.html', context)
@@ -177,7 +177,7 @@ def playlist_list(request):
 # Dettaglio playlist
 @login_required(login_url='music:login')
 def playlist_detail(request, pk):
-    playlist = Playlist.objects.get(pk=pk)
+    playlist = get_object_or_404(Playlist, pk=pk)
     
     # Controlla che solo il creatore possa vederla (se privata)
     if playlist.is_public == False and playlist.creator != request.user:
