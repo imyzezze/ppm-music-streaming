@@ -164,7 +164,7 @@ Contains demo data:
 
 ## Online Deployment
 
-(To be deployed on PythonAnywhere)
+https://imyzezze.pythonanywhere.com
 
 ## Notes for Professor
 
