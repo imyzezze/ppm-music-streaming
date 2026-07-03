@@ -1,0 +1,53 @@
+{% extends 'music/base.html' %}
+
+{% block title %}{{ genre.name }} - Music Streaming{% endblock %}
+
+{% block content %}
+
+<div class="mb-5">
+    <a href="{% url 'music:genre_list' %}" class="btn btn-outline-primary btn-sm mb-3">← Back to Genres</a>
+    
+    <div class="card">
+        <div class="card-body">
+            <h1>{{ genre.name }}</h1>
+            
+            <div class="mb-4">
+                <p class="text-muted">
+                    <strong>Description:</strong> {{ genre.description }}
+                </p>
+                <p class="text-muted">
+                    <strong>Total Songs:</strong> {{ songs.count }}
+                </p>
+            </div>
+
+            <hr class="my-4">
+
+            <h3 class="mb-3">Songs in {{ genre.name }}</h3>
+            <div class="row">
+                {% for song in songs %}
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-body px-3">
+                            <h6 class="card-title">{{ song.title }}</h6>
+                            <p class="card-text text-muted opacity-75">
+                                <small><strong>{{ song.album.title }}</strong></small><br>
+                                <small>by {{ song.album.artist.name }}</small>
+                            </p>
+                            <p class="card-text text-muted opacity-75">
+                                <small>Duration: {{ song.duration }}s</small>
+                            </p>
+                            <a href="{% url 'music:song_detail' song.pk %}" class="btn btn-primary btn-sm">View</a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-12">
+                    <p class="text-muted">No songs in this genre.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

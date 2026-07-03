@@ -1,0 +1,41 @@
+{% extends 'music/base.html' %}
+
+{% block title %}{{ song.title }} - Music Streaming{% endblock %}
+
+{% block content %}
+
+<div class="mb-5">
+    <a href="{% url 'music:song_list' %}" class="btn btn-outline-primary btn-sm mb-3">← Back to Songs</a>
+    
+    <div class="card">
+        <div class="card-body">
+            <h1>{{ song.title }}</h1>
+            
+            <div class="mb-4">
+                <p class="text-muted">
+                    <strong>Album:</strong> 
+                    <a href="{% url 'music:album_detail' song.album.pk %}">{{ song.album.title }}</a>
+                </p>
+                <p class="text-muted">
+                    <strong>Artist:</strong> 
+                    <a href="#">{{ song.album.artist.name }}</a>
+                </p>
+                {% if song.genre %}
+                <p class="text-muted">
+                    <strong>Genre:</strong> 
+                    <a href="{% url 'music:genre_detail' song.genre.pk %}">{{ song.genre.name }}</a>
+                </p>
+                {% endif %}
+                <p class="text-muted">
+                    <strong>Duration:</strong> {{ song.duration }}s
+                </p>
+            </div>
+
+            <div class="mt-4">
+                <a href="{% url 'music:album_detail' song.album.pk %}" class="btn btn-primary">View Album</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

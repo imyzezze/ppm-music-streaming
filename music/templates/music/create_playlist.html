@@ -1,0 +1,37 @@
+{% extends 'music/base.html' %}
+
+{% block title %}Create Playlist - Music Streaming{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="mb-4">Create Playlist</h1>
+                
+                <form method="POST">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Playlist Name</label>
+                        <input type="text" class="form-control" id="title" name="title" placeholder="My Awesome Playlist" required>
+                    </div>
+                    
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="is_public" name="is_public">
+                        <label class="form-check-label" for="is_public">Make this playlist public</label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-100 mt-3">Create</button>
+                </form>
+                
+                <p class="text-center mt-3">
+                    <a href="{% url 'music:playlist_list' %}">Back to Playlists</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

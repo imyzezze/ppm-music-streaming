@@ -1,0 +1,35 @@
+{% extends 'music/base.html' %}
+
+{% block title %}Genres - Music Streaming{% endblock %}
+
+{% block content %}
+
+<div class="mb-5">
+    <h1>All Genres 🎼</h1>
+    <p class="lead text-muted">Explore music by genre</p>
+</div>
+
+<div class="row">
+    {% for genre in genres %}
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+        <div class="card h-100">
+            <div class="card-body px-3 text-center">
+                <h5 class="card-title">{{ genre.name }}</h5>
+                <p class="card-text text-muted opacity-75">
+                    <small>{{ genre.description }}</small>
+                </p>
+                <p class="card-text text-muted opacity-75">
+                    <small><strong>{{ genre.songs.count }} songs</strong></small>
+                </p>
+                <a href="{% url 'music:genre_detail' genre.pk %}" class="btn btn-primary btn-sm mt-2">Explore</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <p class="text-muted text-center">No genres found.</p>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'music/base.html' %}
+
+{% block title %}Home - Music Streaming{% endblock %}
+
+{% block content %}
+
+<div class="mb-5">
+    <h1>Welcome to Music Streaming 🎵</h1>
+    <p class="lead text-muted">Discover, listen, and enjoy your favorite music</p>
+</div>
+
+<!-- Generi In Evidenza -->
+<section class="mb-5">
+    <h2 class="mb-4">Genres</h2>
+    <div class="row">
+        {% for genre in genres %}
+        <div class="col-md-3 col-sm-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ genre.name }}</h5>
+                    <p class="card-text text-muted">{{ genre.description }}</p>
+                    <a href="{% url 'music:genre_detail' genre.pk %}" class="btn btn-primary btn-sm">Explore</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Canzoni Recenti -->
+<section class="mb-5">
+    <h2 class="mb-4">Latest Songs</h2>
+    <div class="row">
+        {% for song in songs %}
+        <div class="col-md-4 col-sm-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body px-3">
+                    <h5 class="card-title">{{ song.title }}</h5>
+                    <p class="card-text text-muted opacity-75">
+                        <small>{{ song.album.title }}</small><br>
+                        <small>by {{ song.album.artist.name }}</small>
+                    </p>
+                    <p class="card-text text-muted opacity-75">
+                        <small>Duration: {{ song.duration }}s</small>
+                    </p>
+                    {% if song.genre %}
+                    <span class="badge">{{ song.genre.name }}</span>
+                    {% endif %}
+                    <a href="{% url 'music:song_detail' song.pk %}" class="btn btn-primary btn-sm mt-2">View</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Album In Evidenza -->
+<section>
+    <h2 class="mb-4">Featured Albums</h2>
+    <div class="row">
+        {% for album in albums %}
+        <div class="col-md-4 col-sm-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ album.title }}</h5>
+                    <p class="card-text text-muted">by {{ album.artist.name }}</p>
+                    {% if album.release_date %}
+                    <p class="card-text text-muted"><small>{{ album.release_date|date:"Y" }}</small></p>
+                    {% endif %}
+                    <a href="{% url 'music:album_detail' album.pk %}" class="btn btn-primary btn-sm">View</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}

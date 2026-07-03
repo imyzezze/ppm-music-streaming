@@ -1,0 +1,43 @@
+{% extends 'music/base.html' %}
+
+{% block title %}My Playlists - Music Streaming{% endblock %}
+
+{% block content %}
+
+<div class="mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>My Playlists 🎶</h1>
+        <a href="{% url 'music:create_playlist' %}" class="btn btn-primary">+ Create Playlist</a>
+    </div>
+</div>
+
+{% if playlists %}
+<div class="row">
+    {% for playlist in playlists %}
+    <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-body px-3">
+                <h5 class="card-title">{{ playlist.title }}</h5>
+                <p class="card-text text-muted opacity-75">
+                    <small>{{ playlist.songs.count }} songs</small><br>
+                    {% if playlist.is_public %}
+                    <span class="badge bg-info">Public</span>
+                    {% else %}
+                    <span class="badge bg-secondary">Private</span>
+                    {% endif %}
+                </p>
+                <a href="{% url 'music:playlist_detail' playlist.pk %}" class="btn btn-primary btn-sm">View</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% else %}
+<div class="alert alert-info text-center">
+    <p>You don't have any playlists yet.</p>
+    <a href="{% url 'music:create_playlist' %}" class="btn btn-primary">Create your first playlist</a>
+</div>
+{% endif %}
+
+{% endblock %}
