@@ -102,10 +102,10 @@ Contains demo data:
 6. Add songs to your playlist
 7. Try removing a song - it disappears from the playlist
 
-### Test 3: Test Playlist Permissions (Important!)
+### Test 3: Test Playlist Permissions
 1. Login as `user / user12345`
 2. Go to Playlists - note the songs
-3. Logout and login as `user2 / user2pass`
+3. Logout and login as `user2 / user23456`
 4. Go to Playlists - you can see user's public playlist
 5. Click on it - you can view but there's no "Remove" button
 6. Only the creator can modify their own playlists
